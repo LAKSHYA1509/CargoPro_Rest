@@ -1,0 +1,30 @@
+-------------------------------------------------------------------------------
+Test set: com.cargopro.LoaderBooker.service.BookingServiceTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 3.374 s <<< FAILURE! -- in com.cargopro.LoaderBooker.service.BookingServiceTest
+com.cargopro.LoaderBooker.service.BookingServiceTest.testUpdateBookingSuccess_AcceptStatus -- Time elapsed: 0.052 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1600.0> but was: <1500.0>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:898)
+	at com.cargopro.LoaderBooker.service.BookingServiceTest.testUpdateBookingSuccess_AcceptStatus(BookingServiceTest.java:261)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.cargopro.LoaderBooker.service.BookingServiceTest.testCreateBookingSuccess -- Time elapsed: 0.015 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <BOOKED> but was: <POSTED>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.cargopro.LoaderBooker.service.BookingServiceTest.testCreateBookingSuccess(BookingServiceTest.java:156)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

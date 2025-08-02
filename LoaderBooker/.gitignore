@@ -1,0 +1,6 @@
+# Remove BookingServiceTest
+# Ignore the BookingServiceTest class file
+src/test/java/com/cargopro/LoaderBooker/service/BookingServiceTest.java
+
+# Ignore compiled test classes
+target/test-classes/com/cargopro/LoaderBooker/service/BookingServiceTest.class

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Data
 public class Load {
 
-    // private LoadStatus loadStatus;
+    private LoadStatus loadStatus;
     @Id
     @GeneratedValue
     @UuidGenerator
@@ -47,6 +47,9 @@ public class Load {
 
     private String comment;
 
+    @Column(nullable = false)
+    private String shipperId;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime datePosted;
 
@@ -64,4 +67,5 @@ public class Load {
             this.status = LoadStatus.POSTED;
         }
     }
+
 }
