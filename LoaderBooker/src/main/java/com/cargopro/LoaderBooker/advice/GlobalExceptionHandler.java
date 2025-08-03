@@ -1,7 +1,9 @@
 package com.cargopro.LoaderBooker.advice;
 
-import com.cargopro.LoaderBooker.exception.ResourceNotFoundException;
-import com.cargopro.LoaderBooker.exception.BadRequestException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -9,11 +11,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import com.cargopro.LoaderBooker.exception.BadRequestException;
+import com.cargopro.LoaderBooker.exception.ResourceNotFoundException;
 
-@ControllerAdvice // [cite: 69]
+@ControllerAdvice 
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -45,9 +46,9 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
                 "Validation Failed",
-                errors.toString() // Or better, put errors map directly if you custom serialize
+                errors.toString() 
         );
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); // [cite: 7]
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); 
     }
 
     @ExceptionHandler(Exception.class)
@@ -60,6 +61,5 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Simple ErrorDetails class for consistent error response structure
     public record ErrorDetails(LocalDateTime timestamp, String message, String details) {}
 }

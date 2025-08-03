@@ -1,7 +1,7 @@
 package com.cargopro.LoaderBooker.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.UUID; // From Lombok
+import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 

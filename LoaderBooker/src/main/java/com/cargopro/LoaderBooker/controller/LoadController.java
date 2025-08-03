@@ -1,22 +1,33 @@
 package com.cargopro.LoaderBooker.controller;
 
-import com.cargopro.LoaderBooker.model.dto.LoadRequestDTO;
-import com.cargopro.LoaderBooker.model.dto.LoadResponseDTO;
-import com.cargopro.LoaderBooker.model.enums.LoadStatus;
-import com.cargopro.LoaderBooker.service.LoadService;
-import jakarta.validation.Valid;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cargopro.LoaderBooker.model.dto.LoadRequestDTO;
+import com.cargopro.LoaderBooker.model.dto.LoadResponseDTO;
+import com.cargopro.LoaderBooker.model.enums.LoadStatus;
+import com.cargopro.LoaderBooker.service.LoadService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import java.util.UUID;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/load")
@@ -43,21 +54,21 @@ public class LoadController {
     @ApiResponse(responseCode = "200", description = "Load found")
     @ApiResponse(responseCode = "404", description = "Load not found")
     @GetMapping("/{loadId}")
-    public ResponseEntity<LoadResponseDTO> getLoadById(@PathVariable UUID loadId) { // [cite: 53]
+    public ResponseEntity<LoadResponseDTO> getLoadById(@PathVariable UUID loadId) {
         LoadResponseDTO load = loadService.getLoadById(loadId);
         return ResponseEntity.ok(load);
     }
 
     @PutMapping("/{loadId}")
-    public ResponseEntity<LoadResponseDTO> updateLoad(@PathVariable UUID loadId, @Valid @RequestBody LoadRequestDTO loadRequestDTO) { // [cite: 54]
+    public ResponseEntity<LoadResponseDTO> updateLoad(@PathVariable UUID loadId, @Valid @RequestBody LoadRequestDTO loadRequestDTO) {
         LoadResponseDTO updatedLoad = loadService.updateLoad(loadId, loadRequestDTO);
         return ResponseEntity.ok(updatedLoad);
     }
 
     @DeleteMapping("/{loadId}")
-    public ResponseEntity<Void> deleteLoad(@PathVariable UUID loadId) { // [cite: 55]
+    public ResponseEntity<Void> deleteLoad(@PathVariable UUID loadId) {
         loadService.deleteLoad(loadId);
-        return ResponseEntity.noContent().build(); // 204 No Content
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Update load status", description = "Changes the status of a specific load (e.g., to IN_TRANSIT, DELIVERED, CANCELLED).")
@@ -72,7 +83,7 @@ public class LoadController {
         return ResponseEntity.ok(updatedLoad);
     }
 
-    @GetMapping // [cite: 52]
+    @GetMapping
     public ResponseEntity<Page<LoadResponseDTO>> getAllLoads(
             @RequestParam(required = false) String shipperId,
             @RequestParam(required = false) String truckType,
