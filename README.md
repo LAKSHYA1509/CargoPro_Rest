@@ -335,35 +335,6 @@ mvn test jacoco:report
 
 ---
 
-## 📝 Contributing
-
-We welcome contributions! Please see our contributing guidelines:
-
-1. 🍴 **Fork** the repository
-2. 🌿 **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. ✍️ **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. 📤 **Push** to the branch (`git push origin feature/amazing-feature`)
-5. 🔃 **Open** a Pull Request
-
-### 📏 Code Standards
-
-- ☕ Follow Java coding conventions
-- 📝 Write comprehensive tests
-- 📖 Update documentation
-- 🏷️ Use conventional commit messages
-
----
-
-## 📄 License
-
-This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-### 🚛 Built with ❤️ for the Logistics Industry
-
 **[⬆ Back to Top](#-cargopro-rest-api)**
 
 </div>
