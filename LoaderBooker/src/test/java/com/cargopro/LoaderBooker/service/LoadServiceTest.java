@@ -1,16 +1,27 @@
 package com.cargopro.LoaderBooker.service;
 
-import com.cargopro.LoaderBooker.exception.ResourceNotFoundException;
-import com.cargopro.LoaderBooker.model.dto.LoadRequestDTO;
-import com.cargopro.LoaderBooker.model.dto.LoadResponseDTO;
-import com.cargopro.LoaderBooker.model.entity.Load;
-import com.cargopro.LoaderBooker.model.enums.LoadStatus;
-import com.cargopro.LoaderBooker.repository.LoadRepository;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -18,14 +29,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import com.cargopro.LoaderBooker.exception.ResourceNotFoundException;
+import com.cargopro.LoaderBooker.model.dto.LoadRequestDTO;
+import com.cargopro.LoaderBooker.model.dto.LoadResponseDTO;
+import com.cargopro.LoaderBooker.model.entity.Load;
+import com.cargopro.LoaderBooker.model.enums.LoadStatus;
+import com.cargopro.LoaderBooker.repository.LoadRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class LoadServiceTest {
@@ -250,7 +259,7 @@ public class LoadServiceTest {
         when(modelMapper.map(any(Load.class), eq(LoadResponseDTO.class))).thenReturn(sampleLoadResponseDTO);
 
 
-        Page<LoadResponseDTO> result = loadService.getAllLoads(null, null, null, pageable);
+        Page<LoadResponseDTO> result = loadService.getAllLoads(pageable);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());

@@ -12,11 +12,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.*;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/load")
+@Tag(name = "Load Management", description = "Operations related to Loads")
 public class LoadController {
 
     private final LoadService loadService;
@@ -26,12 +30,18 @@ public class LoadController {
         this.loadService = loadService;
     }
 
+    @Operation(summary = "Create a new load", description = "Adds a new load (cargo request) to the system.")
+    @ApiResponse(responseCode = "201", description = "Load created successfully")
+    @ApiResponse(responseCode = "400", description = "Invalid input")
     @PostMapping
-    public ResponseEntity<LoadResponseDTO> createLoad(@Valid @RequestBody LoadRequestDTO loadRequestDTO) { // [cite: 51]
+    public ResponseEntity<LoadResponseDTO> createLoad(@Valid @RequestBody LoadRequestDTO loadRequestDTO) {
         LoadResponseDTO createdLoad = loadService.createLoad(loadRequestDTO);
         return new ResponseEntity<>(createdLoad, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Get load details by ID", description = "Retrieves a single load by its unique identifier.")
+    @ApiResponse(responseCode = "200", description = "Load found")
+    @ApiResponse(responseCode = "404", description = "Load not found")
     @GetMapping("/{loadId}")
     public ResponseEntity<LoadResponseDTO> getLoadById(@PathVariable UUID loadId) { // [cite: 53]
         LoadResponseDTO load = loadService.getLoadById(loadId);
@@ -50,6 +60,18 @@ public class LoadController {
         return ResponseEntity.noContent().build(); // 204 No Content
     }
 
+    @Operation(summary = "Update load status", description = "Changes the status of a specific load (e.g., to IN_TRANSIT, DELIVERED, CANCELLED).")
+    @ApiResponse(responseCode = "200", description = "Load status updated successfully")
+    @ApiResponse(responseCode = "400", description = "Invalid status transition")
+    @ApiResponse(responseCode = "404", description = "Load not found")
+    @PutMapping("/{loadId}/status")
+   public ResponseEntity<LoadResponseDTO> updateLoadStatus(
+            @Parameter(description = "ID of the load to update", required = true) @PathVariable UUID loadId,
+            @Parameter(description = "New status for the load", required = true) @RequestParam LoadStatus newStatus) {
+        LoadResponseDTO updatedLoad = loadService.updateLoadStatus(loadId, newStatus);
+        return ResponseEntity.ok(updatedLoad);
+    }
+
     @GetMapping // [cite: 52]
     public ResponseEntity<Page<LoadResponseDTO>> getAllLoads(
             @RequestParam(required = false) String shipperId,
@@ -58,7 +80,7 @@ public class LoadController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<LoadResponseDTO> loads = loadService.getAllLoads(shipperId, truckType, status, pageable);
+        Page<LoadResponseDTO> loads = loadService.getAllLoads(pageable);
         return ResponseEntity.ok(loads);
     }
 }
