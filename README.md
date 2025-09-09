@@ -43,7 +43,7 @@
 
 | Feature | Description |
 |---------|-------------|
-| **🚛 Load Management** | Complete CRUD operations for cargo loads with status tracking |
+| **🚛 Load Management** | Complete CRUD operations for cargo loads with status tracking as Loader |
 | **📋 Booking Management** | End-to-end booking lifecycle with automated status updates |
 | **🔄 Status Transitions** | Smart business rule enforcement for load and booking states |
 | **💾 Data Persistence** | Reliable PostgreSQL storage with JPA/Hibernate ORM |
